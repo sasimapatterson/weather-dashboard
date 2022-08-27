@@ -7,3 +7,32 @@
 body {
     background: yellow;
 }
+
+nav {
+    background: darkcyan;
+    color: white;
+    text-align: center;
+    height: 80px;
+    margin-top: 10px;
+    padding-top: 6px;
+}
+
+main {
+    /* background: lightblue; */
+    margin-top: 30px;
+    display: flex;
+}
+
+.city-search {
+    background: lightpink;
+}
+
+.weather-info {
+    background: lightgray;
+}
+
+.five-days {
+    background: lightsalmon;
+    display: flex;
+    gap: 50px;
+}
