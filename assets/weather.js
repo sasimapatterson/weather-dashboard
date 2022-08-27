@@ -1,12 +1,19 @@
 // var tableBody = document.getElementById('repo-table');
-var fetchButton = document.getElementById('fetch-button');
+var searchButton = document.querySelector('search-button');
 var appid = '95dbf8637213596a65605324d54153a0';
-var q = 'Charlotte';
-var requestUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${q}&appid=${appid}`;
+var weatherInfo = document.querySelector('.weather-info');
+var today = document.querySelector('.current-date');
+var searchInput = document.querySelector('.search-input');
+// today.textContext = moment().format('MM/DD/YYYY');
+
+// var cityChoices = ['Austin', 'Chicago', 'New York', 'Orlando', 'San Fran', 'Seattle', 'Denver', 'Atlanta'];
+
 
 // function getApi() {
 // fetch request gets a list of cities from OpenWeather API
-
+function displayWeather(newCity) { 
+var q = newCity;
+var requestUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${q}&appid=${appid}`;
 fetch(requestUrl)
     .then(function (response) {
         return response.json();
@@ -26,15 +33,28 @@ fetch(requestUrl)
             })
             .then(function (data) {
                 console.log(data);
-                // var h2El = document.createElement('h2');
+                var cityName = document.createElement('h2');
                 // var tempEl = document.createElement('p');
-                // h2El.textContent = city.name;
+                cityName.textContent = city.name;
                 // tempEl.textContent = 'Temp ' + data.current.temp;
-                // document.body.appendChild(h2El);
+                weatherInfo.prepend(cityName);
                 // document.body.appendChild(tempEl);
             });
     });
+};
 
-// fetchButton.addEventListener('click', getApi);
+    var handleSearchSubmit = function (event) {
+        event.preventDefault();
+        var inputSpace = $(".search-input").val();
+        if(!inputSpace){
+            console.log('Please enter the name of the city!');
+            return;
+        }
+        displayWeather(inputSpace);    
+    };
+
+    $(".search-button").on('click', handleSearchSubmit);
+
+displayWeather('Atlanta');
 
 
