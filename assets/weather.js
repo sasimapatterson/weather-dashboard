@@ -5,8 +5,10 @@ var weatherArea = document.querySelector('.weather-area');
 var weatherInfo = document.querySelector('.weather-info');
 var today = document.querySelector('.current-date');
 var searchInput = document.querySelector('.search-input');
-// today.textContext = moment().format('MM/DD/YYYY');
 
+today.textContent = moment().format('MM-DD-YYYY');
+// today.textContent = moment().format('dddd, MMMM, Do YYYY, hh:mm:ss a');
+// alert(today);
 
 
 // fetch request to get cities from OpenWeather API
@@ -60,14 +62,8 @@ function displayWeather(newCity) {
         });
 };
 
-// var renderMessage = function() {
-//     var weatherData = localStorage.getItem("weatherDetails");
-//     var prevWeatherDate = JSON.parse(weatherData);
-// }
-
 // for all the weather elements of the searched city which will display on the page
-var weatherEl = function (data) {
-    
+var weatherEl = function (data) { 
     var tempEl = document.createElement('li');
     var windEl = document.createElement('li');
     var humidEl = document.createElement('li');
@@ -83,11 +79,9 @@ var weatherEl = function (data) {
     weatherInfo.appendChild(uvEl);
 };
 
-
-
 var handleSearchSubmit = function (event) {
     event.preventDefault();
-    var inputSpace = $(".search-input").val();
+    var inputSpace = $(".search-input").val(); //var inputSpace = document.querySelector('.search-input').value;
     if (!inputSpace) {
         console.log('Please enter the name of the city.');
         return;
