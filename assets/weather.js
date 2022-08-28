@@ -5,10 +5,10 @@ var weatherArea = document.querySelector('.weather-area');
 var weatherInfo = document.querySelector('.weather-info');
 var today = document.querySelector('.current-date');
 var searchInput = document.querySelector('.search-input');
+var searchHistory = document.querySelector('.city-search')
 
+// current date using moment.js
 today.textContent = moment().format('MM-DD-YYYY');
-// today.textContent = moment().format('dddd, MMMM, Do YYYY, hh:mm:ss a');
-// alert(today);
 
 
 // fetch request to get cities from OpenWeather API
@@ -38,7 +38,7 @@ function displayWeather(newCity) {
                     console.log(data);
                     var cityName = document.createElement('h2');
                     cityName.textContent = city.name;
-                     weatherArea.prepend(cityName);
+                    weatherArea.prepend(cityName);
                     weatherEl(data);
 
                     // create objects to store in the local storage
@@ -58,12 +58,19 @@ function displayWeather(newCity) {
                     // localStorage.setItem('city', city.name);
                     // var storedCity = localStorage.getItem('city');
                     // console.log(storedCity);
+                    var btn = document.createElement("button");
+                    btn.innerHTML = city.name;
+                    btn.onclick = function () {
+                        console.log("Ouchhh!!")
+                    };
+                    searchHistory.appendChild(btn);
                 });
         });
 };
 
+
 // for all the weather elements of the searched city which will display on the page
-var weatherEl = function (data) { 
+var weatherEl = function (data) {
     var tempEl = document.createElement('li');
     var windEl = document.createElement('li');
     var humidEl = document.createElement('li');
