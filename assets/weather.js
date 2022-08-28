@@ -61,7 +61,7 @@ function displayWeather(newCity) {
                     var btn = document.createElement("button");
                     btn.innerHTML = city.name;
                     btn.onclick = function () {
-                        console.log("Ouchhh!!")
+                        weatherEl();
                     };
                     searchHistory.appendChild(btn);
                 });
