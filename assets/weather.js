@@ -7,11 +7,9 @@ var today = document.querySelector('.current-date');
 var searchInput = document.querySelector('.search-input');
 // today.textContext = moment().format('MM/DD/YYYY');
 
-// var cityChoices = ['Austin', 'Chicago', 'New York', 'Orlando', 'San Fran', 'Seattle', 'Denver', 'Atlanta'];
 
 
-// function getApi() {
-// fetch request gets a list of cities from OpenWeather API
+// fetch request to get cities from OpenWeather API
 function displayWeather(newCity) {
     var q = newCity;
     var requestUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${q}&appid=${appid}`;
@@ -22,9 +20,10 @@ function displayWeather(newCity) {
         .then(function (locations) {
             console.log(locations);
             var city = locations[0];
-            console.log('Name', city.name);
-            console.log('State', city.state);
-            
+            // var forecast = locations[1];
+            // console.log('Name', city.name);
+            // console.log('State', city.state);
+            // console.log('Forcase', forecast.daily);
 
             var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${city.lat}&lon=${city.lon}&appid=${appid}&units=imperial&exclude=hourly,minutely`;
 
@@ -40,30 +39,50 @@ function displayWeather(newCity) {
                      weatherArea.prepend(cityName);
                     weatherEl(data);
 
+                    // create objects to store in the local storage
+                    var weatherDetails = {
+                        city: city.name,
+                        temp: data.current.temp,
+                        wind: data.current.wind_speed,
+                        humidity: data.current.humidity,
+                        uv: data.current.uvi
+                    };
+                    // store in local storage
+                    var weatherData = JSON.stringify(weatherDetails);
+                    console.log(weatherData.toString());
+                    localStorage.setItem("weatherDetails", weatherData);
+                    var storedWeather = localStorage.getItem('weatherDetails');
+                    console.log(storedWeather);
+                    // localStorage.setItem('city', city.name);
+                    // var storedCity = localStorage.getItem('city');
+                    // console.log(storedCity);
                 });
         });
 };
 
-// 
+// var renderMessage = function() {
+//     var weatherData = localStorage.getItem("weatherDetails");
+//     var prevWeatherDate = JSON.parse(weatherData);
+// }
+
+// for all the weather elements of the searched city which will display on the page
 var weatherEl = function (data) {
     
     var tempEl = document.createElement('li');
     var windEl = document.createElement('li');
     var humidEl = document.createElement('li');
     var uvEl = document.createElement('li');
-    tempEl.textContent = 'Temp: ' + data.current.temp;
-    windEl.textContent = 'Wind: ' + data.current.wind_speed;
-    humidEl.textContent = 'Humidity: ' + data.current.humidity;
+    tempEl.textContent = 'Temp: ' + data.current.temp + ' °F';
+    windEl.textContent = 'Wind: ' + data.current.wind_speed + ' MPH';
+    humidEl.textContent = 'Humidity: ' + data.current.humidity + ' %';
     uvEl.textContent = 'UV index: ' + data.current.uvi;
 
-    // cityName.textContent = data.name;
-
-   
     weatherInfo.appendChild(tempEl);
     weatherInfo.appendChild(windEl);
     weatherInfo.appendChild(humidEl);
     weatherInfo.appendChild(uvEl);
-}
+};
+
 
 
 var handleSearchSubmit = function (event) {
