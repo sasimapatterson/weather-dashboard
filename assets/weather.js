@@ -1,6 +1,7 @@
 // var tableBody = document.getElementById('repo-table');
 var searchButton = document.querySelector('search-button');
 var appid = '95dbf8637213596a65605324d54153a0';
+var weatherArea = document.querySelector('.weather-area');
 var weatherInfo = document.querySelector('.weather-info');
 var today = document.querySelector('.current-date');
 var searchInput = document.querySelector('.search-input');
@@ -34,11 +35,23 @@ fetch(requestUrl)
             .then(function (data) {
                 console.log(data);
                 var cityName = document.createElement('h2');
-                // var tempEl = document.createElement('p');
-                cityName.textContent = city.name;
-                // tempEl.textContent = 'Temp ' + data.current.temp;
-                weatherInfo.prepend(cityName);
-                // document.body.appendChild(tempEl);
+                var tempEl = document.createElement('li');
+                var windEl = document.createElement('li');
+                var humidEl = document.createElement('li');
+                var uvEl = document.createElement('li');
+                tempEl.textContent = 'Temp: ' + data.current.temp;
+                windEl.textContent = 'Wind: ' + data.current.wind_speed;
+                humidEl.textContent = 'Humidity: ' + data.current.humidity;
+                uvEl.textContent = 'UV index: ' + data.current.uvi;
+                
+                cityName.textContent = city.name; 
+
+                weatherArea.prepend(cityName);
+                weatherInfo.appendChild(tempEl);
+                weatherInfo.appendChild(windEl);
+                weatherInfo.appendChild(humidEl);
+                weatherInfo.appendChild(uvEl);
+                
             });
     });
 };
@@ -47,7 +60,7 @@ fetch(requestUrl)
         event.preventDefault();
         var inputSpace = $(".search-input").val();
         if(!inputSpace){
-            console.log('Please enter the name of the city!');
+            console.log('Please enter the name of the city.');
             return;
         }
         displayWeather(inputSpace);    
@@ -55,6 +68,6 @@ fetch(requestUrl)
 
     $(".search-button").on('click', handleSearchSubmit);
 
-displayWeather('Atlanta');
+displayWeather();
 
 
