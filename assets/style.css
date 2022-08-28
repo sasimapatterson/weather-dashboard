@@ -57,13 +57,13 @@ button {
     border-radius: 4px;
 } 
 
-.weather-area {
+.weather-container {
     /* background: lightgreen; */
     width: 1080px;
     margin-left: 20px;
 }
 
-.weather-info {
+.weather-area {
     /* background: lightgray; */
     height: 300px;   
     border: 1px solid black;
@@ -77,9 +77,6 @@ button {
     gap: 20px;   
 }
 
-h2 {
-
-}
 
 h3 {
     margin-top:10px;
