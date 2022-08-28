@@ -14,7 +14,7 @@ today.textContent = moment().format('MM-DD-YYYY');
 // fetch request to get cities from OpenWeather API
 function displayWeather(newCity) {
     var q = newCity;
-    var requestUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${q}&appid=${appid}`;
+    var requestUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${q}&appid=${appid}`;
     fetch(requestUrl)
         .then(function (response) {
             return response.json();
@@ -102,7 +102,7 @@ var handleSearchSubmit = function (event) {
 
 function displayPrevSearch() {
     var q = newCity;
-    var requestUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${q}&appid=${appid}`;
+    var requestUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${q}&appid=${appid}`;
     fetch(requestUrl)
         .then(function (response) {
             return response.json();
