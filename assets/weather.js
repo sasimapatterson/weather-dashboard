@@ -6,7 +6,8 @@ var weatherInfo = document.querySelector('.weather-info');
 var today = document.querySelector('.current-date');
 var searchInput = document.querySelector('.search-input');
 var searchHistory = document.querySelector('.city-search')
-
+// var clearBtn = document.querySelector('.clear-btn');
+var searched = [];
 // current date using moment.js
 today.textContent = moment().format('MM-DD-YYYY');
 
@@ -50,11 +51,11 @@ function displayWeather(newCity) {
                         uv: data.current.uvi
                     };
                     // to store in local storage
-                    var weatherData = JSON.stringify(weatherDetails);
+                    // var weatherData = JSON.stringify(weatherDetails);
                     // console.log(weatherData.toString());
-                    localStorage.setItem("weatherDetails", weatherData);
-                    var storedWeather = localStorage.getItem('weatherDetails');
-                    console.log(storedWeather);
+                    // localStorage.setItem("weatherDetails", weatherData);
+                    // var storedWeather = localStorage.getItem('weatherDetails');
+                    // console.log(storedWeather);
                     // localStorage.setItem('city', city.name);
                     // var storedCity = localStorage.getItem('city');
                     // console.log(storedCity);
@@ -90,6 +91,22 @@ var weatherEl = function (data) {
     weatherInfo.appendChild(uvEl);
 };
 
+var displaySearch = function () {
+    // create buttons to store previous search
+    for (var i = 0; i < searched.length; i++) {
+        var btn = document.createElement("button");
+        btn.innerHTML = searched[i];
+        searchHistory.appendChild(btn);
+        // clearBtn.appendChild(btn)
+    };
+
+    // btn.onclick = function () { 
+    // }
+
+    // weatherEl(data);
+}
+
+
 var handleSearchSubmit = function (event) {
     event.preventDefault();
     var inputSpace = $(".search-input").val(); //var inputSpace = document.querySelector('.search-input').value;
@@ -97,36 +114,22 @@ var handleSearchSubmit = function (event) {
         console.log('Please enter the name of the city.');
         return;
     }
+    searched.push(inputSpace);
+    localStorage.setItem('searchHistory', JSON.stringify(searched));
+
+    
     displayWeather(inputSpace);
+    clearBtn.empty();
+    displaySearch();
+    searchInput.value = '';
+    
 };
 
-function displayPrevSearch() {
-    var q = newCity;
-    var requestUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${q}&appid=${appid}`;
-    fetch(requestUrl)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (locations) {
-            console.log(locations);
-            var city = locations[0];
-            // create buttons for previous search
-            var btn = document.createElement("button");
-            btn.innerHTML = city.name;
-            searchHistory.appendChild(btn);
-            
-            // get weather info when click the button with the city name (previous search)
-            btn.onclick = function (data) {
-            weatherEl(data);
-        }; 
-    });       
-};
-        
-        
+
+
 $(".search-button").on('click', handleSearchSubmit);
 
 
-
-
+// displaySearch();
 // displayWeather();
 // weatherEl();
