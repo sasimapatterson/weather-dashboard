@@ -34,14 +34,14 @@ function displayWeather(newCity) {
                 })
                 .then(function (data) {
                     console.log(data);
-                    weatherEl();
+                    weatherEl(data);
 
                 });
         });
 };
 
 // 
-var weatherEl = function () {
+var weatherEl = function (data) {
     var cityName = document.createElement('h2');
     var tempEl = document.createElement('li');
     var windEl = document.createElement('li');
@@ -74,6 +74,6 @@ var handleSearchSubmit = function (event) {
 
 $(".search-button").on('click', handleSearchSubmit);
 
-displayWeather();
-weatherEl();
+// displayWeather();
+// weatherEl();
 
