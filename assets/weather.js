@@ -24,6 +24,7 @@ function displayWeather(newCity) {
             var city = locations[0];
             console.log('Name', city.name);
             console.log('State', city.state);
+            
 
             var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${city.lat}&lon=${city.lon}&appid=${appid}&units=imperial&exclude=hourly,minutely`;
 
@@ -34,6 +35,9 @@ function displayWeather(newCity) {
                 })
                 .then(function (data) {
                     console.log(data);
+                    var cityName = document.createElement('h2');
+                    cityName.textContent = city.name;
+                     weatherArea.prepend(cityName);
                     weatherEl(data);
 
                 });
@@ -42,7 +46,7 @@ function displayWeather(newCity) {
 
 // 
 var weatherEl = function (data) {
-    var cityName = document.createElement('h2');
+    
     var tempEl = document.createElement('li');
     var windEl = document.createElement('li');
     var humidEl = document.createElement('li');
@@ -52,9 +56,9 @@ var weatherEl = function (data) {
     humidEl.textContent = 'Humidity: ' + data.current.humidity;
     uvEl.textContent = 'UV index: ' + data.current.uvi;
 
-    cityName.textContent = city.name;
+    // cityName.textContent = data.name;
 
-    weatherArea.prepend(cityName);
+   
     weatherInfo.appendChild(tempEl);
     weatherInfo.appendChild(windEl);
     weatherInfo.appendChild(humidEl);
