@@ -41,7 +41,7 @@ function displayWeather(newCity) {
                     weatherArea.prepend(cityName);
                     weatherEl(data);
 
-                    // create objects to store in the local storage
+                    // create objects of weather info to store in the local storage
                     var weatherDetails = {
                         city: city.name,
                         temp: data.current.temp,
@@ -49,9 +49,9 @@ function displayWeather(newCity) {
                         humidity: data.current.humidity,
                         uv: data.current.uvi
                     };
-                    // store in local storage
+                    // to store in local storage
                     var weatherData = JSON.stringify(weatherDetails);
-                    console.log(weatherData.toString());
+                    // console.log(weatherData.toString());
                     localStorage.setItem("weatherDetails", weatherData);
                     var storedWeather = localStorage.getItem('weatherDetails');
                     console.log(storedWeather);
@@ -60,13 +60,14 @@ function displayWeather(newCity) {
                     // console.log(storedCity);
 
                     // create buttons to store previous search
-                    var btn = document.createElement("button");
-                    btn.innerHTML = city.name;
-                    btn.onclick = function () {
-                        weatherEl();
-                        // $('.weather-container').empty();
-                    };
-                    searchHistory.appendChild(btn);
+                    // var btn = document.createElement("button");
+                    // btn.innerHTML = city.name;
+                    // searchHistory.appendChild(btn);
+                    // btn.onclick = function () {
+                    //     weatherEl(data);
+                    // $('.weather-container').empty();
+
+
                 });
         });
 };
@@ -99,8 +100,33 @@ var handleSearchSubmit = function (event) {
     displayWeather(inputSpace);
 };
 
+function displayPrevSearch() {
+    var q = newCity;
+    var requestUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${q}&appid=${appid}`;
+    fetch(requestUrl)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (locations) {
+            console.log(locations);
+            var city = locations[0];
+            // create buttons for previous search
+            var btn = document.createElement("button");
+            btn.innerHTML = city.name;
+            searchHistory.appendChild(btn);
+            
+            // get weather info when click the button with the city name (previous search)
+            btn.onclick = function (data) {
+            weatherEl(data);
+        }; 
+    });       
+};
+        
+        
 $(".search-button").on('click', handleSearchSubmit);
+
+
+
 
 // displayWeather();
 // weatherEl();
-
