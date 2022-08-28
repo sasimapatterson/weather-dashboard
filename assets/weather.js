@@ -58,10 +58,13 @@ function displayWeather(newCity) {
                     // localStorage.setItem('city', city.name);
                     // var storedCity = localStorage.getItem('city');
                     // console.log(storedCity);
+
+                    // create buttons to store previous search
                     var btn = document.createElement("button");
                     btn.innerHTML = city.name;
                     btn.onclick = function () {
                         weatherEl();
+                        // $('.weather-container').empty();
                     };
                     searchHistory.appendChild(btn);
                 });
