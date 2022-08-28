@@ -12,62 +12,68 @@ var searchInput = document.querySelector('.search-input');
 
 // function getApi() {
 // fetch request gets a list of cities from OpenWeather API
-function displayWeather(newCity) { 
-var q = newCity;
-var requestUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${q}&appid=${appid}`;
-fetch(requestUrl)
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (locations) {
-        console.log(locations);
-        var city = locations[0];
-        console.log('Name', city.name);
-        console.log('State', city.state);
+function displayWeather(newCity) {
+    var q = newCity;
+    var requestUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${q}&appid=${appid}`;
+    fetch(requestUrl)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (locations) {
+            console.log(locations);
+            var city = locations[0];
+            console.log('Name', city.name);
+            console.log('State', city.state);
 
-        var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${city.lat}&lon=${city.lon}&appid=${appid}&units=imperial&exclude=hourly,minutely`;
+            var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${city.lat}&lon=${city.lon}&appid=${appid}&units=imperial&exclude=hourly,minutely`;
 
-        // fetch from oneCall to get weather
-        fetch(oneCall)
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                console.log(data);
-                var cityName = document.createElement('h2');
-                var tempEl = document.createElement('li');
-                var windEl = document.createElement('li');
-                var humidEl = document.createElement('li');
-                var uvEl = document.createElement('li');
-                tempEl.textContent = 'Temp: ' + data.current.temp;
-                windEl.textContent = 'Wind: ' + data.current.wind_speed;
-                humidEl.textContent = 'Humidity: ' + data.current.humidity;
-                uvEl.textContent = 'UV index: ' + data.current.uvi;
-                
-                cityName.textContent = city.name; 
+            // fetch from oneCall to get weather
+            fetch(oneCall)
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    console.log(data);
+                    weatherEl();
 
-                weatherArea.prepend(cityName);
-                weatherInfo.appendChild(tempEl);
-                weatherInfo.appendChild(windEl);
-                weatherInfo.appendChild(humidEl);
-                weatherInfo.appendChild(uvEl);
-                
-            });
-    });
+                });
+        });
 };
 
-    var handleSearchSubmit = function (event) {
-        event.preventDefault();
-        var inputSpace = $(".search-input").val();
-        if(!inputSpace){
-            console.log('Please enter the name of the city.');
-            return;
-        }
-        displayWeather(inputSpace);    
-    };
+// 
+var weatherEl = function () {
+    var cityName = document.createElement('h2');
+    var tempEl = document.createElement('li');
+    var windEl = document.createElement('li');
+    var humidEl = document.createElement('li');
+    var uvEl = document.createElement('li');
+    tempEl.textContent = 'Temp: ' + data.current.temp;
+    windEl.textContent = 'Wind: ' + data.current.wind_speed;
+    humidEl.textContent = 'Humidity: ' + data.current.humidity;
+    uvEl.textContent = 'UV index: ' + data.current.uvi;
 
-    $(".search-button").on('click', handleSearchSubmit);
+    cityName.textContent = city.name;
+
+    weatherArea.prepend(cityName);
+    weatherInfo.appendChild(tempEl);
+    weatherInfo.appendChild(windEl);
+    weatherInfo.appendChild(humidEl);
+    weatherInfo.appendChild(uvEl);
+}
+
+
+var handleSearchSubmit = function (event) {
+    event.preventDefault();
+    var inputSpace = $(".search-input").val();
+    if (!inputSpace) {
+        console.log('Please enter the name of the city.');
+        return;
+    }
+    displayWeather(inputSpace);
+};
+
+$(".search-button").on('click', handleSearchSubmit);
 
 displayWeather();
-
+weatherEl();
 
