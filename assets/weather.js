@@ -81,11 +81,6 @@ for(var i = 0; i < data.daily.length; i++) { // data.daily.forEach((day, idx) =>
     }
 }                                                           
    
-    
-// fiveDays.innerHTML = fiveDaysForecast;
-
-
-
 var displaySearch = function () {
     // create buttons to store previous search
     searchHistory.innerHTML = '';
@@ -98,8 +93,6 @@ var displaySearch = function () {
 
 }
 
-
-    
 
 var handleSearchSubmit = function (event) {
     event.preventDefault();
@@ -125,13 +118,3 @@ $(".search-button").on('click', handleSearchSubmit);
 // displayWeather();
 // weatherEl();
 
-// if(idx == 1) { 
-//        fiveDaysForecast += `
-//     <div class="day">
-//         <h5>${window.moment(day.dt*1000).format('MM-DD-YYYY')}</h5>
-//         <ul>
-//             <li class="temp">Temp: 73.72 F</li>
-//             <li class="wind">Wind: 9.53 MPH</li>
-//             <li class="humidity">Humidity: 66%</li>
-//         </ul>
-//         </div>` 
