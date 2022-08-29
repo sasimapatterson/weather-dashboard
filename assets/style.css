@@ -29,8 +29,15 @@ main {
 .city-search {
     /* background: lightpink; */
     width: 500px;
+    /* margin-left: 30px; */
+    /* margin-top: px; */
+}
+
+.search-container {
+    width: 500px;
     margin-left: 30px;
     margin-top: -15px;
+    /* background: yellow; */
 }
 
 h1, h2 {

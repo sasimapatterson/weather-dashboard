@@ -28,7 +28,9 @@ function displayWeather(newCity) {
             // console.log('State', city.state);
             // console.log('Forcase', forecast.daily);
 
-            var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${city.lat}&lon=${city.lon}&appid=${appid}&units=imperial&exclude=hourly,minutely`;
+             var oneCall =  `https://api.openweathermap.org/data/2.5/onecall?lat=${city.lat}&lon=${city.lon}&appid=${appid}&units=imperial&exclude=hourly,minutely`;
+
+            // `https://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&appid=${appid}&units=imperial&exclude=hourly,minutely`;
 
             // fetch from oneCall to get weather
             fetch(oneCall)
@@ -43,31 +45,14 @@ function displayWeather(newCity) {
                     weatherEl(data);
 
                     // create objects of weather info to store in the local storage
-                    var weatherDetails = {
-                        city: city.name,
-                        temp: data.current.temp,
-                        wind: data.current.wind_speed,
-                        humidity: data.current.humidity,
-                        uv: data.current.uvi
-                    };
-                    // to store in local storage
-                    // var weatherData = JSON.stringify(weatherDetails);
-                    // console.log(weatherData.toString());
-                    // localStorage.setItem("weatherDetails", weatherData);
-                    // var storedWeather = localStorage.getItem('weatherDetails');
-                    // console.log(storedWeather);
-                    // localStorage.setItem('city', city.name);
-                    // var storedCity = localStorage.getItem('city');
-                    // console.log(storedCity);
-
-                    // create buttons to store previous search
-                    // var btn = document.createElement("button");
-                    // btn.innerHTML = city.name;
-                    // searchHistory.appendChild(btn);
-                    // btn.onclick = function () {
-                    //     weatherEl(data);
-                    // $('.weather-container').empty();
-
+                    // var weatherDetails = {
+                    //     city: city.name,
+                    //     temp: data.current.temp,
+                    //     wind: data.current.wind_speed,
+                    //     humidity: data.current.humidity,
+                    //     uv: data.current.uvi
+                    // };
+        
 
                 });
         });
@@ -93,17 +78,14 @@ var weatherEl = function (data) {
 
 var displaySearch = function () {
     // create buttons to store previous search
+    searchHistory.innerHTML = '';
     for (var i = 0; i < searched.length; i++) {
         var btn = document.createElement("button");
-        btn.innerHTML = searched[i];
+        btn.textContent = searched[i];
         searchHistory.appendChild(btn);
         // clearBtn.appendChild(btn)
     };
 
-    // btn.onclick = function () { 
-    // }
-
-    // weatherEl(data);
 }
 
 
@@ -119,7 +101,7 @@ var handleSearchSubmit = function (event) {
 
     
     displayWeather(inputSpace);
-    clearBtn.empty();
+    // clearBtn.empty();
     displaySearch();
     searchInput.value = '';
     
