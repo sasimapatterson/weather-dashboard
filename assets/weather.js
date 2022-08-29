@@ -28,7 +28,7 @@ function displayWeather(newCity) {
             // console.log('State', city.state);
             // console.log('Forcase', forecast.daily);
 
-             var oneCall =  `https://api.openweathermap.org/data/2.5/onecall?lat=${city.lat}&lon=${city.lon}&appid=${appid}&units=imperial&exclude=hourly,minutely`;
+            var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${city.lat}&lon=${city.lon}&appid=${appid}&units=imperial&exclude=hourly,minutely`;
 
             // `https://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&appid=${appid}&units=imperial&exclude=hourly,minutely`;
 
@@ -44,15 +44,19 @@ function displayWeather(newCity) {
                     weatherArea.prepend(cityName);
                     weatherEl(data);
 
-                    // create objects of weather info to store in the local storage
-                    // var weatherDetails = {
-                    //     city: city.name,
-                    //     temp: data.current.temp,
-                    //     wind: data.current.wind_speed,
-                    //     humidity: data.current.humidity,
-                    //     uv: data.current.uvi
-                    // };
-        
+                    // var { temp, wind_speed, humidity, uvi } = data.current;
+
+                    // weatherInfo.innerHTML =
+                    //     `<div class="weather-area">
+                    //         <h2></h2>
+                    //         <ul class="weather-info">
+                    //             <li class="temp">Temp: <span>${temp}</li>
+                    //             <li class="wind">Wind: <span>${wind_speed}</li>
+                    //             <li class="humid">Humidity: <span>${humidity}</li>
+                    //             <li class="uv">UV: <span>${uvi}</li>
+                    //         </ul>
+                    //     </div>`;
+
 
                 });
         });
@@ -74,6 +78,8 @@ var weatherEl = function (data) {
     weatherInfo.appendChild(windEl);
     weatherInfo.appendChild(humidEl);
     weatherInfo.appendChild(uvEl);
+
+    
 };
 
 var displaySearch = function () {
@@ -99,12 +105,12 @@ var handleSearchSubmit = function (event) {
     searched.push(inputSpace);
     localStorage.setItem('searchHistory', JSON.stringify(searched));
 
-    
+
     displayWeather(inputSpace);
     // clearBtn.empty();
     displaySearch();
     searchInput.value = '';
-    
+
 };
 
 
