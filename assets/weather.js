@@ -4,8 +4,14 @@ var appid = '95dbf8637213596a65605324d54153a0';
 var weatherArea = document.querySelector('.weather-area');
 var weatherInfo = document.querySelector('.weather-info');
 var today = document.querySelector('.current-date');
+var futureDate = document.querySelector('.future-date');
 var searchInput = document.querySelector('.search-input');
 var searchHistory = document.querySelector('.city-search')
+var btn = document.createElement("button");
+var fiveDays = document.querySelector('.five-days');
+var temp = document.querySelector('.temp');
+var wind = document.querySelector('.wind');
+var humidity = document.querySelector('.humidity');
 // var clearBtn = document.querySelector('.clear-btn');
 var searched = [];
 // current date using moment.js
@@ -23,14 +29,10 @@ function displayWeather(newCity) {
         .then(function (locations) {
             console.log(locations);
             var city = locations[0];
-            // var forecast = locations[1];
-            // console.log('Name', city.name);
-            // console.log('State', city.state);
-            // console.log('Forcase', forecast.daily);
+
 
             var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${city.lat}&lon=${city.lon}&appid=${appid}&units=imperial&exclude=hourly,minutely`;
 
-            // `https://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&appid=${appid}&units=imperial&exclude=hourly,minutely`;
 
             // fetch from oneCall to get weather
             fetch(oneCall)
@@ -43,21 +45,6 @@ function displayWeather(newCity) {
                     cityName.textContent = city.name;
                     weatherArea.prepend(cityName);
                     weatherEl(data);
-
-                    // var { temp, wind_speed, humidity, uvi } = data.current;
-
-                    // weatherInfo.innerHTML =
-                    //     `<div class="weather-area">
-                    //         <h2></h2>
-                    //         <ul class="weather-info">
-                    //             <li class="temp">Temp: <span>${temp}</li>
-                    //             <li class="wind">Wind: <span>${wind_speed}</li>
-                    //             <li class="humid">Humidity: <span>${humidity}</li>
-                    //             <li class="uv">UV: <span>${uvi}</li>
-                    //         </ul>
-                    //     </div>`;
-
-
                 });
         });
 };
@@ -79,8 +66,25 @@ var weatherEl = function (data) {
     weatherInfo.appendChild(humidEl);
     weatherInfo.appendChild(uvEl);
 
+var fiveDaysForecast = '';
+for(var i = 0; i < data.daily.length; i++) { // data.daily.forEach((day, idx) =>
+  console.log(fiveDaysForecast[i]);
+    if(i == 1) {
+        fiveDaysForecast+=
+        today.textContent = moment(day.dt*1000).format('MM-DD-YYYY'); 
+        temp.innerHTML = `Temp: ${daily.temp.day} °F`; 
+        wind.innerHTML = `Wind: ${daily.weather.wind_speed} MPH`; 
+        humidity.innerHTML = `Humidity: ${daily.feels_like.humidity} °F`; 
+
+    }
+
+    }
+}                                                           
+   
     
-};
+// fiveDays.innerHTML = fiveDaysForecast;
+
+
 
 var displaySearch = function () {
     // create buttons to store previous search
@@ -94,6 +98,8 @@ var displaySearch = function () {
 
 }
 
+
+    
 
 var handleSearchSubmit = function (event) {
     event.preventDefault();
@@ -109,11 +115,8 @@ var handleSearchSubmit = function (event) {
     displayWeather(inputSpace);
     // clearBtn.empty();
     displaySearch();
-    searchInput.value = '';
-
+    // searchInput.value = '';
 };
-
-
 
 $(".search-button").on('click', handleSearchSubmit);
 
@@ -121,3 +124,14 @@ $(".search-button").on('click', handleSearchSubmit);
 // displaySearch();
 // displayWeather();
 // weatherEl();
+
+// if(idx == 1) { 
+//        fiveDaysForecast += `
+//     <div class="day">
+//         <h5>${window.moment(day.dt*1000).format('MM-DD-YYYY')}</h5>
+//         <ul>
+//             <li class="temp">Temp: 73.72 F</li>
+//             <li class="wind">Wind: 9.53 MPH</li>
+//             <li class="humidity">Humidity: 66%</li>
+//         </ul>
+//         </div>` 
