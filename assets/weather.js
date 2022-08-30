@@ -71,15 +71,15 @@ var weatherEl = function (data) {
 
 // to display 5-days forecast
 var fiveDaysForecast = function(data){
-    console.log(data);
+    // console.log(data);
     for(var i = 0; i < data.daily.length; i++) { 
-    console.log(data.daily[i]);
+    // console.log(data.daily[i]);
     if(i == 1) {
       
         futureDate.textContent = new Date(data.daily[i].dt * 1000).toLocaleDateString(); 
         temp.innerHTML = `Temp: ${data.daily[i].temp.day} °F`; 
-        wind.innerHTML = `Wind: ${data.daily.weather.wind_speed} MPH`; 
-        humidity.innerHTML = `Humidity: ${data.daily.humidity} °F`; 
+        wind.innerHTML = `Wind: ${data.daily[i].wind_speed} MPH`; 
+        humidity.innerHTML = `Humidity: ${data.daily[i].humidity} °F`; 
     }
 
     }
@@ -93,6 +93,7 @@ var displaySearch = function () {
     for (var i = 0; i < searched.length; i++) {
         var btn = document.createElement("button");
         btn.style.backgroundColor = 'gray';
+        btn.style.color = 'white';
         btn.textContent = searched[i];
         searchHistory.appendChild(btn);
         // clearBtn.appendChild(btn)
