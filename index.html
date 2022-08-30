@@ -26,6 +26,7 @@
 </header>
 
 <main>
+    <!-- Search section (input and button) -->
     <div class="search-container">
         <h2>Search for a City:</h2>
         <form action="">
@@ -33,9 +34,9 @@
         </form>
         <button class="search-button">Search</button>
         <div class="city-search"></div>
-        <!-- add more buttons for the search history? -->
     </div>
 
+    <!-- Display weather info for current day -->
     <div class="weather-container">
         <div class="weather-area">
             <h2 class="city-name">City</h2>
@@ -47,6 +48,7 @@
             </ul>
         </div>
 
+        <!-- Display weather info for the next five days -->
         <h3>5-Day Forecast:</h3>
         <div class="five-days">
             <div class="day">
@@ -90,16 +92,14 @@
                 </ul>
             </div>
         </div>
-
     </div>
-
 </main>
 
 
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="./assets/script.js"></script>
+
     <script src="./assets/weather.js"></script>
 
 

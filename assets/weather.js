@@ -17,7 +17,6 @@ var humidEl = document.querySelector('.humid-el');
 var uvEl = document.querySelector('.uv-el');
 var cityName = document.querySelector('.city-name');
 
-// var clearBtn = document.querySelector('.clear-btn');
 var searched = [];
 
 // current date using moment.js
@@ -27,6 +26,7 @@ today.textContent = moment().format('MM-DD-YYYY');
 // fetch request to get cities from OpenWeather API
 function displayWeather(newCity) {
     var q = newCity;
+    // OpenWeather API for Geo 
     var requestUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${q}&appid=${appid}`;
     fetch(requestUrl)
         .then(function (response) {
@@ -36,7 +36,7 @@ function displayWeather(newCity) {
             console.log(locations);
             var city = locations[0];
 
-
+            // OpenWeather API for weather data
             var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${city.lat}&lon=${city.lon}&appid=${appid}&units=imperial&exclude=hourly,minutely`;
 
 
@@ -48,11 +48,8 @@ function displayWeather(newCity) {
                 .then(function (data) {
                     console.log(data);
                     cityName.innerHTML = city.name;
-                    // var cityName = document.createElement('h2');
-                    // cityName.textContent = city.name;
-                    // weatherArea.prepend(cityName);
+                   
                     weatherEl(data);
-                    
                     fiveDaysForecast(data);
 
                 });
@@ -61,41 +58,28 @@ function displayWeather(newCity) {
 
 // for all the weather elements of the searched city which will display on the page
 var weatherEl = function (data) {
-    // var tempEl = document.createElement('li');
-    // var windEl = document.createElement('li');
-    // var humidEl = document.createElement('li');
-    // var uvEl = document.createElement('li');
+
     tempEl.innerHTML = 'Temp: ' + data.current.temp + ' °F';
     windEl.innerHTML = 'Wind: ' + data.current.wind_speed + ' MPH';
     humidEl.innerHTML = 'Humidity: ' + data.current.humidity + ' %';
     uvEl.innerHTML = 'UV index: ' + data.current.uvi;
-    
-    // weatherInfo.appendChild(tempEl);
-    // weatherInfo.appendChild(windEl);
-    // weatherInfo.appendChild(humidEl);
-    // weatherInfo.appendChild(uvEl);
 
-}       
+}
 
 // to display 5-days forecast
-var fiveDaysForecast = function(data){
-    // console.log(data);
-    // for(var i = 0; i < data.daily.length; i++) { 
-        for(var i = 0; i < 5; i++){ 
-    console.log(data.daily[i]);
-    // if(i == 1) {
-      
-        futureDate[i].textContent = new Date(data.daily[i].dt * 1000).toLocaleDateString(); 
-        temp[i].innerHTML = `Temp: ${data.daily[i].temp.day} °F`; 
-        wind[i].innerHTML = `Wind: ${data.daily[i].wind_speed} MPH`; 
-        humidity[i].innerHTML = `Humidity: ${data.daily[i].humidity} °F`; 
-    // }
+var fiveDaysForecast = function (data) {
+    // console.log(data); 
+    for (var i = 0; i < 5; i++) {
+        console.log(data.daily[i]);
+
+        futureDate[i].textContent = new Date(data.daily[i].dt * 1000).toLocaleDateString();
+        temp[i].innerHTML = `Temp: ${data.daily[i].temp.day} °F`;
+        wind[i].innerHTML = `Wind: ${data.daily[i].wind_speed} MPH`;
+        humidity[i].innerHTML = `Humidity: ${data.daily[i].humidity} °F`;   
 
     }
 };
 
-// fiveDaysForecast();
-   
 var displaySearch = function () {
     // create buttons to store previous search
     searchHistory.innerHTML = '';
@@ -105,11 +89,10 @@ var displaySearch = function () {
         btn.style.color = 'white';
         btn.textContent = searched[i];
         searchHistory.appendChild(btn);
-        // clearBtn.appendChild(btn)
+        
     };
 
 }
-
 
 var handleSearchSubmit = function (event) {
     event.preventDefault();
@@ -123,9 +106,9 @@ var handleSearchSubmit = function (event) {
 
 
     displayWeather(inputSpace);
-    // clearBtn.empty();
+    
     displaySearch();
-    // searchInput.value = '';
+   
 };
 
 
@@ -133,8 +116,3 @@ var handleSearchSubmit = function (event) {
 $(".search-button").on('click', handleSearchSubmit);
 
 
-// displaySearch();
-// displayWeather();
-// weatherEl();
-// data.daily.forEach((day, idx) =>
-// futureDate.textContent = moment(data.daily.dt*1000).format('MM-DD-YYYY'); 
