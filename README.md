@@ -10,8 +10,10 @@ Weather App that users can easily search and display the necessary weather infor
 Getting ready for vacation is all about planning. You plan your trip, places where you want to visit and things you want to do when you are there. Packing the right clothes and type of shoes will make your travel much more enjoyable. The Weather Dashboard app has the following features:
 * Users are presented with the current weather information and the forecast for the next 5 days.
 * Users can check temperature, wind speed, humidity and UV index.    
-* Users can conveniently check the weather of the cities they previously searched. 
+* Users can conveniently check the weather of the cities they previously searched.
 
+ This weather app is using the service of OpenWeather One Call API which allows the users to get the weather information. The localStorage is used for storing any persistent data in this case the name of the cities that users input in the search form.
+ 
 ## Visuals
 ```pip
 Weather Dashboard app displaying current date. 
