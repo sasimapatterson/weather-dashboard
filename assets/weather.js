@@ -80,7 +80,8 @@ var weatherEl = function (data) {
 // to display 5-days forecast
 var fiveDaysForecast = function(data){
     // console.log(data);
-    for(var i = 0; i < data.daily.length; i++) { 
+    // for(var i = 0; i < data.daily.length; i++) { 
+        for(var i = 0; i < 5; i++){ 
     console.log(data.daily[i]);
     // if(i == 1) {
       
