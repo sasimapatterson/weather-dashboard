@@ -17,7 +17,6 @@ var humidEl = document.querySelector('.humid-el');
 var uvEl = document.querySelector('.uv-el');
 var cityName = document.querySelector('.city-name');
 
-var searched = [];
 
 // current date using moment.js
 today.textContent = moment().format('MM-DD-YYYY');
@@ -82,6 +81,7 @@ var fiveDaysForecast = function (data) {
 
 var displaySearch = function () {
     // create buttons to store previous search
+    var searched = JSON.parse(localStorage.getItem("searchHistory")) || [];
     searchHistory.innerHTML = '';
     for (var i = 0; i < searched.length; i++) {
         var btn = document.createElement("button");
@@ -96,11 +96,12 @@ var displaySearch = function () {
 
 var handleSearchSubmit = function (event) {
     event.preventDefault();
-    var inputSpace = $(".search-input").val(); //var inputSpace = document.querySelector('.search-input').value;
+    var inputSpace = document.querySelector('.search-input').value;
     if (!inputSpace) {
         console.log('Please enter the name of the city.');
         return;
     }
+    var searched = JSON.parse(localStorage.getItem("searchHistory")) || [];
     searched.push(inputSpace);
     localStorage.setItem('searchHistory', JSON.stringify(searched));
 
@@ -111,8 +112,18 @@ var handleSearchSubmit = function (event) {
    
 };
 
+var handleCityClick = function (event){
+    event.preventDefault();
+    if(event.target.matches("button")){
+        displayWeather(event.target.textContent);
+    
+        displaySearch();
+    }
+}
 
 
-$(".search-button").on('click', handleSearchSubmit);
+document.querySelector(".search-button").addEventListener('click', handleSearchSubmit);
+document.querySelector(".city-search").addEventListener('click', handleCityClick);
 
+displaySearch();
 
