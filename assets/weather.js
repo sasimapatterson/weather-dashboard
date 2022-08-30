@@ -3,14 +3,20 @@ var appid = '95dbf8637213596a65605324d54153a0';
 var weatherArea = document.querySelector('.weather-area');
 var weatherInfo = document.querySelector('.weather-info');
 var today = document.querySelector('.current-date');
-var futureDate = document.querySelector('.future-date');
+var futureDate = document.querySelectorAll('.future-date');
 var searchInput = document.querySelector('.search-input');
 var searchHistory = document.querySelector('.city-search')
 var btn = document.createElement("button");
 var fiveDays = document.querySelector('.five-days');
-var temp = document.querySelector('.temp');
-var wind = document.querySelector('.wind');
-var humidity = document.querySelector('.humidity');
+var temp = document.querySelectorAll('.temp');
+var wind = document.querySelectorAll('.wind');
+var humidity = document.querySelectorAll('.humidity');
+var tempEl = document.querySelector('.temp-el');
+var windEl = document.querySelector('.wind-el');
+var humidEl = document.querySelector('.humid-el');
+var uvEl = document.querySelector('.uv-el');
+var cityName = document.querySelector('.city-name');
+
 // var clearBtn = document.querySelector('.clear-btn');
 var searched = [];
 
@@ -41,10 +47,12 @@ function displayWeather(newCity) {
                 })
                 .then(function (data) {
                     console.log(data);
-                    var cityName = document.createElement('h2');
-                    cityName.textContent = city.name;
-                    weatherArea.prepend(cityName);
+                    cityName.innerHTML = city.name;
+                    // var cityName = document.createElement('h2');
+                    // cityName.textContent = city.name;
+                    // weatherArea.prepend(cityName);
                     weatherEl(data);
+                    
                     fiveDaysForecast(data);
 
                 });
@@ -53,19 +61,19 @@ function displayWeather(newCity) {
 
 // for all the weather elements of the searched city which will display on the page
 var weatherEl = function (data) {
-    var tempEl = document.createElement('li');
-    var windEl = document.createElement('li');
-    var humidEl = document.createElement('li');
-    var uvEl = document.createElement('li');
-    tempEl.textContent = 'Temp: ' + data.current.temp + ' °F';
-    windEl.textContent = 'Wind: ' + data.current.wind_speed + ' MPH';
-    humidEl.textContent = 'Humidity: ' + data.current.humidity + ' %';
-    uvEl.textContent = 'UV index: ' + data.current.uvi;
-
-    weatherInfo.appendChild(tempEl);
-    weatherInfo.appendChild(windEl);
-    weatherInfo.appendChild(humidEl);
-    weatherInfo.appendChild(uvEl);
+    // var tempEl = document.createElement('li');
+    // var windEl = document.createElement('li');
+    // var humidEl = document.createElement('li');
+    // var uvEl = document.createElement('li');
+    tempEl.innerHTML = 'Temp: ' + data.current.temp + ' °F';
+    windEl.innerHTML = 'Wind: ' + data.current.wind_speed + ' MPH';
+    humidEl.innerHTML = 'Humidity: ' + data.current.humidity + ' %';
+    uvEl.innerHTML = 'UV index: ' + data.current.uvi;
+    
+    // weatherInfo.appendChild(tempEl);
+    // weatherInfo.appendChild(windEl);
+    // weatherInfo.appendChild(humidEl);
+    // weatherInfo.appendChild(uvEl);
 
 }       
 
@@ -73,13 +81,13 @@ var weatherEl = function (data) {
 var fiveDaysForecast = function(data){
     // console.log(data);
     for(var i = 0; i < data.daily.length; i++) { 
-    // console.log(data.daily[i]);
+    console.log(data.daily[i]);
     if(i == 1) {
       
-        futureDate.textContent = new Date(data.daily[i].dt * 1000).toLocaleDateString(); 
-        temp.innerHTML = `Temp: ${data.daily[i].temp.day} °F`; 
-        wind.innerHTML = `Wind: ${data.daily[i].wind_speed} MPH`; 
-        humidity.innerHTML = `Humidity: ${data.daily[i].humidity} °F`; 
+        futureDate[i].textContent = new Date(data.daily[i].dt * 1000).toLocaleDateString(); 
+        temp[i].innerHTML = `Temp: ${data.daily[i].temp.day} °F`; 
+        wind[i].innerHTML = `Wind: ${data.daily[i].wind_speed} MPH`; 
+        humidity[i].innerHTML = `Humidity: ${data.daily[i].humidity} °F`; 
     }
 
     }
@@ -119,7 +127,7 @@ var handleSearchSubmit = function (event) {
     // searchInput.value = '';
 };
 
-// fiveDaysForecast();
+
 
 $(".search-button").on('click', handleSearchSubmit);
 
