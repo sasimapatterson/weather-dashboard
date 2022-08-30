@@ -1,4 +1,3 @@
-// var tableBody = document.getElementById('repo-table');
 var searchButton = document.querySelector('search-button');
 var appid = '95dbf8637213596a65605324d54153a0';
 var weatherArea = document.querySelector('.weather-area');
@@ -14,6 +13,7 @@ var wind = document.querySelector('.wind');
 var humidity = document.querySelector('.humidity');
 // var clearBtn = document.querySelector('.clear-btn');
 var searched = [];
+
 // current date using moment.js
 today.textContent = moment().format('MM-DD-YYYY');
 
@@ -45,10 +45,11 @@ function displayWeather(newCity) {
                     cityName.textContent = city.name;
                     weatherArea.prepend(cityName);
                     weatherEl(data);
+                    fiveDaysForecast(data);
+
                 });
         });
 };
-
 
 // for all the weather elements of the searched city which will display on the page
 var weatherEl = function (data) {
@@ -70,16 +71,15 @@ var weatherEl = function (data) {
 
 // to display 5-days forecast
 var fiveDaysForecast = function(data){
-    for(var i = 0; i < data.daily.length; i++) { // data.daily.forEach((day, idx) =>
-    console.log(fiveDaysForecast[i]);
+    console.log(data);
+    for(var i = 0; i < data.daily.length; i++) { 
+    console.log(data.daily[i]);
     if(i == 1) {
-        
-        futureDate.textContent = new Date(data.daily.dt * 1000).toLocaleDateString();
-        // futureDate.textContent = moment(data.daily.dt*1000).format('MM-DD-YYYY'); 
-        temp.innerHTML = `Temp: ${daily.temp.day} °F`; 
-        wind.innerHTML = `Wind: ${daily.weather.wind_speed} MPH`; 
-        humidity.innerHTML = `Humidity: ${daily.feels_like.humidity} °F`; 
-
+      
+        futureDate.textContent = new Date(data.daily[i].dt * 1000).toLocaleDateString(); 
+        temp.innerHTML = `Temp: ${data.daily[i].temp.day} °F`; 
+        wind.innerHTML = `Wind: ${data.daily.weather.wind_speed} MPH`; 
+        humidity.innerHTML = `Humidity: ${data.daily.humidity} °F`; 
     }
 
     }
@@ -118,7 +118,7 @@ var handleSearchSubmit = function (event) {
     // searchInput.value = '';
 };
 
-fiveDaysForecast();
+// fiveDaysForecast();
 
 $(".search-button").on('click', handleSearchSubmit);
 
@@ -126,4 +126,5 @@ $(".search-button").on('click', handleSearchSubmit);
 // displaySearch();
 // displayWeather();
 // weatherEl();
-
+// data.daily.forEach((day, idx) =>
+// futureDate.textContent = moment(data.daily.dt*1000).format('MM-DD-YYYY'); 
