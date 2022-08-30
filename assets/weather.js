@@ -82,13 +82,13 @@ var fiveDaysForecast = function(data){
     // console.log(data);
     for(var i = 0; i < data.daily.length; i++) { 
     console.log(data.daily[i]);
-    if(i == 1) {
+    // if(i == 1) {
       
         futureDate[i].textContent = new Date(data.daily[i].dt * 1000).toLocaleDateString(); 
         temp[i].innerHTML = `Temp: ${data.daily[i].temp.day} °F`; 
         wind[i].innerHTML = `Wind: ${data.daily[i].wind_speed} MPH`; 
         humidity[i].innerHTML = `Humidity: ${data.daily[i].humidity} °F`; 
-    }
+    // }
 
     }
 };
