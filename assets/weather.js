@@ -66,12 +66,16 @@ var weatherEl = function (data) {
     weatherInfo.appendChild(humidEl);
     weatherInfo.appendChild(uvEl);
 
-var fiveDaysForecast = '';
-for(var i = 0; i < data.daily.length; i++) { // data.daily.forEach((day, idx) =>
-  console.log(fiveDaysForecast[i]);
+}       
+
+// to display 5-days forecast
+var fiveDaysForecast = function(data){
+    for(var i = 0; i < data.daily.length; i++) { // data.daily.forEach((day, idx) =>
+    console.log(fiveDaysForecast[i]);
     if(i == 1) {
-        fiveDaysForecast+=
-        today.textContent = moment(day.dt*1000).format('MM-DD-YYYY'); 
+        
+        futureDate.textContent = new Date(data.daily.dt * 1000).toLocaleDateString();
+        // futureDate.textContent = moment(data.daily.dt*1000).format('MM-DD-YYYY'); 
         temp.innerHTML = `Temp: ${daily.temp.day} °F`; 
         wind.innerHTML = `Wind: ${daily.weather.wind_speed} MPH`; 
         humidity.innerHTML = `Humidity: ${daily.feels_like.humidity} °F`; 
@@ -79,13 +83,16 @@ for(var i = 0; i < data.daily.length; i++) { // data.daily.forEach((day, idx) =>
     }
 
     }
-}                                                           
+};
+
+// fiveDaysForecast();
    
 var displaySearch = function () {
     // create buttons to store previous search
     searchHistory.innerHTML = '';
     for (var i = 0; i < searched.length; i++) {
         var btn = document.createElement("button");
+        btn.style.backgroundColor = 'gray';
         btn.textContent = searched[i];
         searchHistory.appendChild(btn);
         // clearBtn.appendChild(btn)
@@ -110,6 +117,8 @@ var handleSearchSubmit = function (event) {
     displaySearch();
     // searchInput.value = '';
 };
+
+fiveDaysForecast();
 
 $(".search-button").on('click', handleSearchSubmit);
 
